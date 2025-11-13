@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>pupil_ros_bridge</name>
+  <version>0.0.0</version>
+  <description>Transfer data from Pupil Labs processes to ROS
+  
+  The Pupil Core eye tracking headset from Pupil Labs is managed by the Pupil Capture
+  software, which allows access to real-time data over a ZeroMQ (ZMQ) Inter-Process
+  Communication (IPC) backbone. Messages on the IPC backbone are encoded by MessagePack.
+  In order to access this data from ROS, a 'bridging' code is needed to interact with
+  ZMQ, extract the MessagePack-encoded messages, and forward them to nodes in the ROS
+  network.
+  </description>
+
+  <maintainer email="s.forbrigger@ieee.org">Shane Forbrigger</maintainer>
+
+  <license>MIT</license>
+
+  <author email="s.forbrigger@ieee.org">Shane Forbrigger</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>rospy</depend>
+  <depend>python3-msgpack</depend>
+  <depend>python3-zmq</depend>
+  <depend>std_msgs</depend>
+
+  <build_depend>message_generation</build_depend>
+  <exec_depend>message_runtime</exec_depend>
+
+</package>

@@ -1,0 +1,2 @@
+float64 pupil_timestamp
+Cartesian2D norm_pos
