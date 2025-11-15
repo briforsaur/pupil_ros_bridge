@@ -2,11 +2,13 @@
 import rospy
 
 from pupil_ros_bridge.msg import Pupil
+from pupil_ros_bridge.tools import test_function
 
 def callback(data: Pupil):
     rospy.loginfo(f"{rospy.get_caller_id()}I heard {data.pupil_timestamp}, {data.norm_pos}")
     
 def listener():
+    test_function(2)
 
     # In ROS, nodes are uniquely named. If two nodes with the same
     # name are launched, the previous one is kicked off. The
