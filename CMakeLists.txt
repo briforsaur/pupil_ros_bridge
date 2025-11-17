@@ -49,6 +49,7 @@ catkin_python_setup()
 ## Generate messages in the 'msg' folder
 add_message_files(
   FILES
+  BaseTimestamps.msg
   Cartesian2D.msg
   Cartesian3D.msg
   Circle3D.msg
@@ -166,6 +167,8 @@ include_directories(
 catkin_install_python(PROGRAMS
   scripts/pupil_publisher.py
   scripts/pupil_subscriber.py
+  scripts/gaze_publisher.py
+  scripts/gaze_subscriber.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
