@@ -1,0 +1,3 @@
+Cartesian3D center
+Cartesian3D normal
+float64 radius

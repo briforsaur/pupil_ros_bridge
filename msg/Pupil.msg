@@ -1,2 +1,12 @@
-float64 pupil_timestamp
+float64 timestamp
+int64 world_index
+float64 confidence
 Cartesian2D norm_pos
+float64 diameter
+Ellipse ellipse
+float64 diameter_3d
+Sphere sphere
+Circle3D circle_3d
+float64 theta
+float64 phi
+ProjectedSphere projected_sphere

@@ -49,9 +49,15 @@ catkin_python_setup()
 ## Generate messages in the 'msg' folder
 add_message_files(
   FILES
-  Pupil.msg
-  Gaze.msg
   Cartesian2D.msg
+  Cartesian3D.msg
+  Circle3D.msg
+  Ellipse.msg
+  EllipseAxes.msg
+  Gaze.msg
+  ProjectedSphere.msg
+  Pupil.msg
+  Sphere.msg
 )
 
 ## Generate services in the 'srv' folder
