@@ -1,3 +1,6 @@
+from .constants import Topic
+
+
 PUPIL_DATA = {
     'id': 1,
     'topic': 'pupil.1.3d',
@@ -41,4 +44,9 @@ GAZE_DATA = {
     'confidence': 0.84503173828125,
     'timestamp': 6.528818999999203, 
     'base_data': [PUPIL_DATA]
+}
+
+ALL_DATA = {
+    Topic.PUPIL: PUPIL_DATA, 
+    Topic.GAZE: GAZE_DATA,
 }

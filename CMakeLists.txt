@@ -169,6 +169,7 @@ catkin_install_python(PROGRAMS
   scripts/pupil_subscriber.py
   scripts/gaze_publisher.py
   scripts/gaze_subscriber.py
+  scripts/pupil_ipc_bridge.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
