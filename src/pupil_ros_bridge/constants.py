@@ -22,16 +22,16 @@ ConversionFcnType = Callable[[Dict[str, Any]], PupilMessageType]
 
 
 @dataclass
-class TopicParams:
+class TopicConfig:
     message: Type[PupilMessageType]
     conversion_fcn: ConversionFcnType
 
 
-TOPIC_PARAMS = {
-    Topic.PUPIL: TopicParams(
+TOPIC_CONFIGS = {
+    Topic.PUPIL: TopicConfig(
         message=Pupil, conversion_fcn=convert_pupil_to_msg
     ),
-    Topic.GAZE: TopicParams(
+    Topic.GAZE: TopicConfig(
         message=Gaze, conversion_fcn=convert_gaze_to_msg
     ),
 }

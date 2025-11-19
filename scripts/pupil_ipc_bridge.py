@@ -7,11 +7,11 @@ from pupil_ros_bridge.constants import (
     DEFAULT_PUPIL_PORT, 
     Topic
 )
-from pupil_ros_bridge.publishers import talker
+from pupil_ros_bridge.publishers import run_ipc_bridge
 
 
 def main(topics: str, ipc_ip: str = DEFAULT_PUPIL_IP, ipc_port: str = DEFAULT_PUPIL_PORT):
-    talker(topics)
+    run_ipc_bridge(topics)
 
 
 def _get_args() -> Namespace:
