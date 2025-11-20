@@ -1,17 +1,24 @@
 #!/usr/bin/env python
 from argparse import ArgumentParser, Namespace
 import rospy
+from typing import Iterable
 
 from pupil_ros_bridge.constants import (
     DEFAULT_PUPIL_IP, 
     DEFAULT_PUPIL_PORT, 
     Topic
 )
+from pupil_ros_bridge.ipc import PupilNetworkHandler
 from pupil_ros_bridge.publishers import run_ipc_bridge
 
 
-def main(topics: str, ipc_ip: str = DEFAULT_PUPIL_IP, ipc_port: str = DEFAULT_PUPIL_PORT):
-    run_ipc_bridge(topics)
+def main(
+    topics: Iterable[str], 
+    ipc_ip: str = DEFAULT_PUPIL_IP, 
+    ipc_port: str = DEFAULT_PUPIL_PORT
+) -> None:
+    pupil_handler = PupilNetworkHandler(ipc_ip, ipc_port, topics)
+    run_ipc_bridge(topics, pupil_handler)
 
 
 def _get_args() -> Namespace:

@@ -1,2 +1,0 @@
-float64 timestamp0
-float64 timestamp1

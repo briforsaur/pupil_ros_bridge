@@ -1,4 +1,4 @@
-from typing import Any, Dict
+from typing import Any, Dict, List
 
 from pupil_ros_bridge.msg import (
     BaseTimestamps,
@@ -48,29 +48,44 @@ def convert_pupil_to_msg(pupil_data: Dict[str, Any]) -> Pupil:
 
 def convert_gaze_to_msg(gaze_data: Dict[str, Any]) -> Gaze:
     topic: str = gaze_data['topic']
-    eye_ids = topic.split('.')[2]
-    base_id = _BASE_IDS[eye_ids]
-    base_timestamps = [-1., -1.]
-    for i, eye_id in enumerate(eye_ids):
-        base_timestamps[int(eye_id)] = gaze_data['base_data'][i]['timestamp']
+    eye_ids = get_eye_ids_from(topic)
+    # The eye center and gaze normal keys vary depending on if one or both eyes are used
+    # in the gaze mapping. The base data structure also changes
+    if len(eye_ids) == 2: # both eyes were used
+        eye_centers = [
+            Cartesian3D(*data) for data in gaze_data['eye_centers_3d'].values()
+        ]
+        gaze_normals = [
+            Cartesian3D(*data) for data in gaze_data['gaze_normals_3d'].values()
+        ]
+        base_timestamps = [data['timestamp'] for data in gaze_data['base_data']]
+    else:
+        # Replacing missing eye data with NaN
+        eye_id = eye_ids[0]
+        default_3d = Cartesian3D(*[float('nan') for i in range(3)])
+        eye_centers = [default_3d, default_3d]
+        eye_centers[eye_id] = Cartesian3D(*gaze_data['eye_center_3d'])
+        gaze_normals = [default_3d, default_3d]
+        gaze_normals[eye_id] = Cartesian3D(*gaze_data['gaze_normal_3d'])
+        base_timestamps = [float('nan'), float('nan')]
+        base_timestamps[eye_id] = gaze_data['base_data'][0]['timestamp']
     return Gaze(
         timestamp=gaze_data['timestamp'],
-        eye_center_3d=Cartesian3D(*gaze_data['eye_center_3d']),
-        gaze_normal_3d=Cartesian3D(*gaze_data['gaze_normal_3d']),
+        eye_centers_3d=eye_centers,
+        gaze_normals_3d=gaze_normals,
         gaze_point_3d=Cartesian3D(*gaze_data['gaze_point_3d']),
         norm_pos=Cartesian2D(*gaze_data['norm_pos']),
         confidence=gaze_data['confidence'],
-        base_id=base_id,
-        base_timestamps=BaseTimestamps(*base_timestamps),
+        base_timestamps=base_timestamps,
     )
 
 
-def get_baseid_from_topic(topic: str) -> int:
-    """Get an integer representing the eyes used to generate a gaze datum
+def get_eye_ids_from(topic: str) -> List[int]:
+    """Get a list of integers representing the eyes used to generate a gaze datum
 
     Pupil Capture reports which eye data were used to generate a gaze datum using the
     topic field of the gaze data structure. The topic is of the form 
-    ``"gaze.[ids].3d"``, where ``ids`` can have the following values:
+    ``"gaze.3d.[ids]"``, where ``ids`` can have the following values:
 
         ``"0"`` - eye 0 (the right eye) was used
 
@@ -80,17 +95,16 @@ def get_baseid_from_topic(topic: str) -> int:
 
     Parameters
     ----------
+    topic: str
+        The Pupil data topic string, of the form ``"gaze.3d.[ids]"``
 
     Returns
     -------
-    int
-        An integer representing the eyes used. Consider each eye as a digit in a binary
-        number: ``00`` means neither eye was used (never the case), ``01`` (1) means
-        that only the right eye was used, ``10`` (2) means that only the left eye was
-        used, and ``11`` (3) means that both eyes were used.
+    List[int]
+        A list of integers
     """
     eye_ids = topic.split('.')[2]
-    return _BASE_IDS[eye_ids]
+    return [int(eye_id) for eye_id in eye_ids]
 
 
 _BASE_IDS = {
