@@ -13,8 +13,9 @@ of data from the Pupil Capture IPC backbone to be published as topics in ROS Noe
 ## How to use
 
 ### Installation
-Install ROS Noetic following the [instructions on the ROS wiki](https://wiki.ros.org/noetic/Installation). The following instructions assume you are using Ubuntu or Debian, and may
-need to be adjusted if you are using Windows 10 or a different Linux distribution.
+Install ROS Noetic following the [instructions on the ROS wiki](https://wiki.ros.org/noetic/Installation). The following instructions assume you are using Ubuntu 20.04 with the 
+default system Python (Python 3.8), and may need to be adjusted if you are using Windows
+10 or a different Linux distribution.
 
 Source ROS on the command line.
 ```
@@ -40,6 +41,11 @@ catkin_ws
         ├── msg
         ├── scripts
         └── src
+```
+
+Install the package dependencies using `rosdep`:
+```
+rosdep install --from-paths src --ignore-src -r -y
 ```
 
 Now build the package by calling `catkin_make` from the `catkin_ws` folder.
