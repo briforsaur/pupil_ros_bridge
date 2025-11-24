@@ -18,7 +18,6 @@ def run_ipc_bridge(topics: Iterable[str], pupil_handler: PupilNetworkHandler) ->
     rospy.init_node(f'pupil_ipc_publisher')
     ros_rate = rospy.Rate(10)
     while not rospy.is_shutdown():
-        rospy.loginfo(rospy.Time.now())
         data = pupil_handler.get_latest_data()
         for topic, datum in data.items():
             # Get the conversion function for corresponding topic
