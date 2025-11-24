@@ -1,3 +1,6 @@
+# Copyright 2025 Shane Forbrigger
+# Licensed under the MIT License (see LICENSE file in project root)
+
 from msgpack import unpackb
 from typing import Any, Iterable, Dict, Tuple
 import zmq

@@ -1,4 +1,7 @@
 #!/usr/bin/env python
+
+# Copyright 2025 Shane Forbrigger
+# Licensed under the MIT License (see LICENSE file in project root)
 import rospy
 
 from pupil_ros_bridge.msg import Gaze

@@ -1,3 +1,6 @@
+# Copyright 2025 Shane Forbrigger
+# Licensed under the MIT License (see LICENSE file in project root)
+
 from enum import Enum, unique
 from dataclasses import dataclass
 from genpy import Message
