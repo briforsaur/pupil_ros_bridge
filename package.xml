@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package format="2">
   <name>pupil_ros_bridge</name>
-  <version>0.0.0</version>
+  <version>0.1.0</version>
   <description>Transfer data from Pupil Labs processes to ROS
   
   The Pupil Core eye tracking headset from Pupil Labs is managed by the Pupil Capture
