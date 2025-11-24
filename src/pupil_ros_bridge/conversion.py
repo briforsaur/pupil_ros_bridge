@@ -1,7 +1,6 @@
 from typing import Any, Dict, List
 
 from pupil_ros_bridge.msg import (
-    BaseTimestamps,
     Cartesian2D,
     Cartesian3D,
     Circle3D,
