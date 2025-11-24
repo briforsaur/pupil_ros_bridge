@@ -16,7 +16,9 @@ class PupilNetworkHandler:
         self._req.send_string("SUB_PORT")
         sub_port = self._req.recv_string()
         self._sub = context.socket(zmq.SUB)
-        self._sub.connect(f"tcp://{pupil_ip}:{sub_port}")
+        sub_uri = f"tcp://{pupil_ip}:{sub_port}"
+        self._sub.connect(sub_uri)
+        print(f"Pupil subscription port established at {sub_uri}")
         # Set subscription topic
         self._subscribe_to(_topics)
 
