@@ -5,8 +5,12 @@ from enum import Enum, unique
 from dataclasses import dataclass
 from typing import Any, Callable, Dict, Type, Union
 
-from .conversion import convert_pupil_to_msg, convert_gaze_to_msg
-from pupil_ros_bridge.msg import Pupil, Gaze
+from .conversion import (
+    convert_pupil_to_msg, 
+    convert_gaze_to_msg, 
+    convert_gaze_on_surface_to_msg
+)
+from pupil_ros_bridge.msg import Pupil, Gaze, GazeOnSurface
 
 
 DEFAULT_PUPIL_IP = "127.0.0.1"
@@ -17,9 +21,10 @@ DEFAULT_PUPIL_PORT = "50020"
 class Topic(Enum):
     PUPIL = "pupil"
     GAZE = "gaze"
+    SURFACE = "surfaces"
 
 
-PupilMessageType = Union[Pupil, Gaze]
+PupilMessageType = Union[Pupil, Gaze, GazeOnSurface]
 ConversionFcnType = Callable[[Dict[str, Any]], PupilMessageType]
 
 
@@ -36,4 +41,7 @@ TOPIC_CONFIGS = {
     Topic.GAZE: TopicConfig(
         message=Gaze, conversion_fcn=convert_gaze_to_msg
     ),
+    Topic.SURFACE: TopicConfig(
+        message=GazeOnSurface, conversion_fcn=convert_gaze_on_surface_to_msg
+    )
 }

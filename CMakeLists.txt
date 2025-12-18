@@ -19,6 +19,7 @@ add_message_files(
   ProjectedSphere.msg
   Pupil.msg
   Sphere.msg
+  GazeOnSurface.msg
 )
 
 generate_messages()

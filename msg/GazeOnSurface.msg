@@ -1,0 +1,5 @@
+Cartesian2D norm_pos
+float64 confidence
+bool on_surf
+float64 timestamp
+float64 base_timestamp

@@ -13,6 +13,7 @@ from pupil_ros_bridge.msg import (
     ProjectedSphere,
     Pupil,
     Sphere,
+    GazeOnSurface,
 )
 
 def convert_pupil_to_msg(pupil_data: Dict[str, Any]) -> Pupil:
@@ -107,6 +108,17 @@ def get_eye_ids_from(topic: str) -> List[int]:
     """
     eye_ids = topic.split('.')[2]
     return [int(eye_id) for eye_id in eye_ids]
+
+
+def convert_gaze_on_surface_to_msg(surface_data: Dict[str, Any]) -> GazeOnSurface:
+    base_timestamp = surface_data["base_data"][1]
+    return GazeOnSurface(
+        norm_pos=surface_data["norm_pos"],
+        confidence=surface_data["confidence"],
+        on_surf=surface_data["on_surf"],
+        timestamp=surface_data["timestamp"],
+        base_timestamp=base_timestamp,
+    )
 
 
 _BASE_IDS = {
