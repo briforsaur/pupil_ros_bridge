@@ -3,7 +3,6 @@
 
 from enum import Enum, unique
 from dataclasses import dataclass
-from genpy import Message
 from typing import Any, Callable, Dict, Type, Union
 
 from .conversion import convert_pupil_to_msg, convert_gaze_to_msg
